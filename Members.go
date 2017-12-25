@@ -1,10 +1,10 @@
-package models
+package exmodels
 
 import (
     "time"
     "math/rand"
-    "../di"
     "strings"
+    "github.com/jinzhu/gorm"
 )
 
 const SN_LENGTH = 8
@@ -27,9 +27,11 @@ type Members struct {
 
     CreatedAt           *time.Time
     UpdatedAt           *time.Time
+
+    BaseModel `sql:"-"`
 }
 
-func CreateMember(email string) (member *Members, err error) {
+func NewMember(conn *gorm.DB, email string) (member *Members, err error) {
 
     createdAt := time.Now()
 
@@ -37,6 +39,8 @@ func CreateMember(email string) (member *Members, err error) {
         Email:           email,
         CreatedAt:       &createdAt,
         UpdatedAt:       &createdAt,
+
+        BaseModel: BaseModel{MySQLConnection: conn},
     }
 
     member.GenerateSn()
@@ -44,10 +48,19 @@ func CreateMember(email string) (member *Members, err error) {
     return member, nil
 }
 
-func (this *Members) Load(id uint) error {
-    mysql := di.Get().Mysql
+func (this *Members) Create() error {
+    return this.BaseModel.MySQLConnection.Create(&this).Error
+}
 
-    return mysql.First(&this, id).Error
+func (this *Members) Save() error {
+    updatedAt := time.Now()
+    this.UpdatedAt = &updatedAt
+
+    return this.BaseModel.MySQLConnection.Save(&this).Error
+}
+
+func (this *Members) Load(id uint) error {
+    return this.BaseModel.MySQLConnection.First(&this, id).Error
 }
 
 func (this *Members) GenerateSn() {
@@ -65,22 +78,5 @@ func (this *Members) GenerateSn() {
 }
 
 func (this *Members) FindFirstByEmail(email string) error {
-    mysql := di.Get().Mysql
-
-    return mysql.Where("email = ?", email).First(&this).Error
-}
-
-func (this *Members) Create() error {
-    mysql := di.Get().Mysql
-
-    return mysql.Create(&this).Error
-}
-
-func (this *Members) Save() error {
-    mysql := di.Get().Mysql
-
-    updatedAt := time.Now()
-    this.UpdatedAt = &updatedAt
-
-    return mysql.Save(&this).Error
+    return this.BaseModel.MySQLConnection.Where("email = ?", email).First(&this).Error
 }

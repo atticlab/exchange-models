@@ -1,9 +1,9 @@
-package models
+package exmodels
 
 import (
     "golang.org/x/crypto/bcrypt"
     "time"
-    "../di"
+    "github.com/jinzhu/gorm"
 )
 
 type Identities struct {
@@ -15,8 +15,46 @@ type Identities struct {
     IsLocked            bool             `sql:"default: null"`
     LockedAt            *time.Time
     LastVerifyAt        *time.Time
+
     CreatedAt           *time.Time
     UpdatedAt           *time.Time
+
+    BaseModel `sql:"-"`
+}
+
+func NewIdentity(conn *gorm.DB, email string, password string) (identity *Identities, err error) {
+    createdAt := time.Now()
+
+    identity = &Identities{
+        Email:           email,
+        PasswordDigest:  "",
+        RetryCount:      0,
+        IsActive:        false,
+        IsLocked:        false,
+        CreatedAt:       &createdAt,
+        UpdatedAt:       &createdAt,
+
+        BaseModel: BaseModel{MySQLConnection: conn},
+    }
+
+    err = identity.HashPassword(password)
+
+    if err != nil {
+        return nil, err
+    }
+
+    return identity, nil
+}
+
+func (this *Identities) Create() error {
+    return this.BaseModel.MySQLConnection.Create(&this).Error
+}
+
+func (this *Identities) Save() error {
+    updatedAt := time.Now()
+    this.UpdatedAt = &updatedAt
+
+    return this.BaseModel.MySQLConnection.Save(&this).Error
 }
 
 func (this *Identities) HashPassword(password string) error {
@@ -30,45 +68,5 @@ func (this *Identities) CheckPassword(password string) error {
 }
 
 func (this *Identities) FindFirstByEmail(email string) error {
-    mysql := di.Get().Mysql
-
-    return mysql.Where("email = ?", email).First(&this).Error
-}
-
-func CreateIdentity(email string, password string) (identity *Identities, err error) {
-
-    createdAt := time.Now()
-
-    identity = &Identities{
-        Email:           email,
-        PasswordDigest:  "",
-        RetryCount:      0,
-        IsActive:        false,
-        IsLocked:        false,
-        CreatedAt:       &createdAt,
-        UpdatedAt:       &createdAt,
-    }
-
-    err = identity.HashPassword(password)
-
-    if err != nil {
-        return nil, err
-    }
-
-    return identity, nil
-}
-
-func (this *Identities) Create() error {
-    mysql := di.Get().Mysql
-
-    return mysql.Create(&this).Error
-}
-
-func (this *Identities) Save() error {
-    mysql := di.Get().Mysql
-
-    updatedAt := time.Now()
-    this.UpdatedAt = &updatedAt
-
-    return mysql.Save(&this).Error
+    return this.BaseModel.MySQLConnection.Where("email = ?", email).First(&this).Error
 }
