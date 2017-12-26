@@ -51,6 +51,17 @@ func (this *Tokens) Save() error {
     return this.BaseModel.MySQLConnection.Save(&this).Error
 }
 
+func (this *Tokens) CreateWithTx(tx *gorm.DB) *gorm.DB {
+    return tx.Create(&this)
+}
+
+func (this *Tokens) SaveWithTx(tx *gorm.DB) *gorm.DB {
+    updatedAt := time.Now()
+    this.UpdatedAt = &updatedAt
+
+    return tx.Save(&this)
+}
+
 func GetTokenByMemberId(conn *gorm.DB, memberId uint) (*Tokens, error) {
     if memberId == 0 {
         return nil, errors.New("Empty memberId")

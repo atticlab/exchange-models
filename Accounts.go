@@ -46,3 +46,14 @@ func (this *Accounts) Save() error {
 
     return this.BaseModel.MySQLConnection.Save(&this).Error
 }
+
+func (this *Accounts) CreateWithTx(tx *gorm.DB) *gorm.DB {
+    return tx.Create(&this)
+}
+
+func (this *Accounts) SaveWithTx(tx *gorm.DB) *gorm.DB {
+    updatedAt := time.Now()
+    this.UpdatedAt = &updatedAt
+
+    return tx.Save(&this)
+}

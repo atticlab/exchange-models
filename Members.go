@@ -60,6 +60,17 @@ func (this *Members) Save() error {
     return this.BaseModel.MySQLConnection.Save(&this).Error
 }
 
+func (this *Members) CreateWithTx(tx *gorm.DB) *gorm.DB {
+    return tx.Create(&this)
+}
+
+func (this *Members) SaveWithTx(tx *gorm.DB) *gorm.DB {
+    updatedAt := time.Now()
+    this.UpdatedAt = &updatedAt
+
+    return tx.Save(&this)
+}
+
 func (this *Members) GenerateSn() {
 
     var letterRunes = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")

@@ -58,6 +58,17 @@ func (this *Identities) Save() error {
     return this.BaseModel.MySQLConnection.Save(&this).Error
 }
 
+func (this *Identities) CreateWithTx(tx *gorm.DB) *gorm.DB {
+    return tx.Create(&this)
+}
+
+func (this *Identities) SaveWithTx(tx *gorm.DB) *gorm.DB {
+    updatedAt := time.Now()
+    this.UpdatedAt = &updatedAt
+
+    return tx.Save(&this)
+}
+
 func (this *Identities) HashPassword(password string) error {
     hashByte, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
     this.PasswordDigest = string(hashByte)
