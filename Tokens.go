@@ -51,6 +51,23 @@ func (this *Tokens) Save() error {
     return this.BaseModel.MySQLConnection.Save(&this).Error
 }
 
+func GetTokenByMemberId(conn *gorm.DB, memberId uint) (*Tokens, error) {
+    if memberId == 0 {
+        return nil, errors.New("Empty memberId")
+    }
+
+    var tokenObj Tokens
+
+    err := conn.Where("member_id = ?", memberId).First(&tokenObj).Error
+    if err != nil {
+        return nil, errors.New(fmt.Sprintf("Cannot load token from mysql: %s", err.Error()))
+    }
+
+    tokenObj.BaseModel.MySQLConnection = conn
+
+    return &tokenObj, nil
+}
+
 func GetTokenByActivationCode(conn *gorm.DB, token string) (*Tokens, error) {
     if token == "" {
         return nil, errors.New("empty token")
@@ -62,6 +79,8 @@ func GetTokenByActivationCode(conn *gorm.DB, token string) (*Tokens, error) {
     if err != nil {
         return nil, errors.New(fmt.Sprintf("Cannot load token from mysql: %s", err.Error()))
     }
+
+    tokenObj.BaseModel.MySQLConnection = conn
 
     return &tokenObj, nil
 }

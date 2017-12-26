@@ -3,6 +3,7 @@ package exmodels
 import (
     "golang.org/x/crypto/bcrypt"
     "time"
+    "errors"
     "github.com/jinzhu/gorm"
 )
 
@@ -67,6 +68,23 @@ func (this *Identities) CheckPassword(password string) error {
     return bcrypt.CompareHashAndPassword([]byte(this.PasswordDigest), []byte(password))
 }
 
-func (this *Identities) FindFirstByEmail(email string) error {
-    return this.BaseModel.MySQLConnection.Where("email = ?", email).First(&this).Error
+func GetIdentityByEmail(conn *gorm.DB, email string) (*Identities, error) {
+    if email == "" {
+        return nil, errors.New("Empty identity email")
+    }
+
+    var identityObj Identities
+
+    result := conn.Where("email = ?", email).First(&identityObj)
+    if result.Error != nil {
+        if result.RecordNotFound() {
+            return nil, nil
+        }
+
+        return nil, result.Error
+    }
+
+    identityObj.BaseModel.MySQLConnection = conn
+
+    return &identityObj, nil
 }

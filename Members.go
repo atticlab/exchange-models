@@ -2,6 +2,7 @@ package exmodels
 
 import (
     "time"
+    "errors"
     "math/rand"
     "strings"
     "github.com/jinzhu/gorm"
@@ -59,10 +60,6 @@ func (this *Members) Save() error {
     return this.BaseModel.MySQLConnection.Save(&this).Error
 }
 
-func (this *Members) Load(id uint) error {
-    return this.BaseModel.MySQLConnection.First(&this, id).Error
-}
-
 func (this *Members) GenerateSn() {
 
     var letterRunes = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -77,6 +74,44 @@ func (this *Members) GenerateSn() {
     return
 }
 
-func (this *Members) FindFirstByEmail(email string) error {
-    return this.BaseModel.MySQLConnection.Where("email = ?", email).First(&this).Error
+func GetMemberByEmail(conn *gorm.DB, email string) (*Members, error) {
+    if email == "" {
+        return nil, errors.New("Empty identity email")
+    }
+
+    var memberObj Members
+
+    result := conn.Where("email = ?", email).First(&memberObj)
+    if result.Error != nil {
+        if result.RecordNotFound() {
+            return nil, nil
+        }
+
+        return nil, result.Error
+    }
+
+    memberObj.BaseModel.MySQLConnection = conn
+
+    return &memberObj, nil
+}
+
+func GetMember(conn *gorm.DB, id uint) (*Members, error) {
+    if id == 0 {
+        return nil, errors.New("Empty member id")
+    }
+
+    var memberObj Members
+
+    result := conn.First(&memberObj, id)
+    if result.Error != nil {
+        if result.RecordNotFound() {
+            return nil, nil
+        }
+
+        return nil, result.Error
+    }
+
+    memberObj.BaseModel.MySQLConnection = conn
+
+    return &memberObj, nil
 }
