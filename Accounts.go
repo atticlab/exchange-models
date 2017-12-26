@@ -15,17 +15,17 @@ type Accounts struct {
     Out                         float32 `sql:"type:decimal(10,2); default: null"`
     DefaultWithdrawFundSourceId uint    `sql:"default: null"`
 
-    CreatedAt *time.Time
-    UpdatedAt *time.Time
+    CreatedAt *time.Time `sql:"default: null"`
+    UpdatedAt *time.Time `sql:"default: null"`
 
     BaseModel `sql:"-"`
 }
 
-func NewAccount(conn *gorm.DB, memberId uint, currencyId uint8) (account *Accounts, err error) {
+func NewAccount(conn *gorm.DB, memberId uint, currencyId uint8) (*Accounts, error) {
     //TODO validate memberId, currencyId
     createdAt := time.Now()
 
-    account = &Accounts{
+    account := &Accounts{
         MemberId:  memberId,
         Currency:  currencyId,
         CreatedAt: &createdAt,

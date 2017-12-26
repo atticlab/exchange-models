@@ -8,37 +8,37 @@ import (
 )
 
 type Identities struct {
-    Id                  uint             `gorm:"primary_key"`
-    Email               string           `gorm:"size:255"`
-    PasswordDigest      string           `gorm:"size:255"`
-    IsActive            bool             `sql:"default: null"`
-    RetryCount          int              `sql:"default: null"`
-    IsLocked            bool             `sql:"default: null"`
-    LockedAt            *time.Time
-    LastVerifyAt        *time.Time
+    Id             uint       `gorm:"primary_key"`
+    Email          string     `gorm:"size:255"`
+    PasswordDigest string     `gorm:"size:255"`
+    IsActive       bool       `sql:"default: null"`
+    RetryCount     int        `sql:"default: null"`
+    IsLocked       bool       `sql:"default: null"`
+    LockedAt       *time.Time `sql:"default: null"`
+    LastVerifyAt   *time.Time `sql:"default: null"`
 
-    CreatedAt           *time.Time
-    UpdatedAt           *time.Time
+    CreatedAt *time.Time `sql:"default: null"`
+    UpdatedAt *time.Time `sql:"default: null"`
 
     BaseModel `sql:"-"`
 }
 
-func NewIdentity(conn *gorm.DB, email string, password string) (identity *Identities, err error) {
+func NewIdentity(conn *gorm.DB, email string, password string) (*Identities, error) {
     createdAt := time.Now()
 
-    identity = &Identities{
-        Email:           email,
-        PasswordDigest:  "",
-        RetryCount:      0,
-        IsActive:        false,
-        IsLocked:        false,
-        CreatedAt:       &createdAt,
-        UpdatedAt:       &createdAt,
+    identity := &Identities{
+        Email:          email,
+        PasswordDigest: "",
+        RetryCount:     0,
+        IsActive:       false,
+        IsLocked:       false,
+        CreatedAt:      &createdAt,
+        UpdatedAt:      &createdAt,
 
         BaseModel: BaseModel{MySQLConnection: conn},
     }
 
-    err = identity.HashPassword(password)
+    err := identity.HashPassword(password)
 
     if err != nil {
         return nil, err

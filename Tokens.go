@@ -8,6 +8,8 @@ import (
     "github.com/jinzhu/gorm"
 )
 
+const TokenTypeActivation = "Token::Activation"
+
 type Tokens struct {
     Id                  uint             `gorm:"primary_key"`
     Token               string           `gorm:"size:255"`
@@ -15,20 +17,20 @@ type Tokens struct {
     IsUsed              bool
     Type                string           `gorm:"size:255"`
 
-    ExpiresAt           *time.Time
-    CreatedAt           *time.Time
-    UpdatedAt           *time.Time
+    ExpiresAt           *time.Time `sql:"default: null"`
+    CreatedAt           *time.Time `sql:"default: null"`
+    UpdatedAt           *time.Time `sql:"default: null"`
 
     BaseModel `sql:"-"`
 }
 
-func NewToken(conn *gorm.DB, memberId uint, AuthTokenTtl int64) (token *Tokens, err error) {
+func NewToken(conn *gorm.DB, memberId uint, AuthTokenTtl int64) (*Tokens, error) {
     createdAt := time.Now()
     expiresAt := time.Unix(time.Now().Unix() + AuthTokenTtl, 0)
 
-    token = &Tokens{
+    token := &Tokens{
         MemberId:        memberId,
-        Type:            "Token::Activation",
+        Type:            TokenTypeActivation,
         Token:           randstr.Hex(16),
         ExpiresAt:       &expiresAt,
         CreatedAt:       &createdAt,

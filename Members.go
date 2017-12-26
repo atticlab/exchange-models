@@ -32,11 +32,11 @@ type Members struct {
     BaseModel `sql:"-"`
 }
 
-func NewMember(conn *gorm.DB, email string) (member *Members, err error) {
+func NewMember(conn *gorm.DB, email string) (*Members, error) {
 
     createdAt := time.Now()
 
-    member = &Members{
+    member := &Members{
         Email:           email,
         CreatedAt:       &createdAt,
         UpdatedAt:       &createdAt,
