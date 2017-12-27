@@ -36,3 +36,13 @@ func GetCurrencyById(id uint8) (*Currency) {
 
     return nil
 }
+
+func GetCurrencyByCode(code string) (*Currency) {
+    for _, cur := range AcceptedCurrencies {
+        if cur.Code == code {
+            return &cur
+        }
+    }
+
+    return nil
+}

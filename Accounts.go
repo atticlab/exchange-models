@@ -3,6 +3,7 @@ package exmodels
 import (
     "time"
     "github.com/jinzhu/gorm"
+    "errors"
 )
 
 type Accounts struct {
@@ -56,4 +57,28 @@ func (this *Accounts) SaveWithTx(tx *gorm.DB) *gorm.DB {
     this.UpdatedAt = &updatedAt
 
     return tx.Save(&this)
+}
+
+func GetAccountByMemberAndCurrency(conn *gorm.DB, memberId uint, currencyId uint8) (*Accounts, error) {
+    if memberId == 0 {
+        return nil, errors.New("empty member id")
+    }
+    if currencyId == 0 {
+        return nil, errors.New("empty currency id")
+    }
+
+    var accountObj Accounts
+
+    result := conn.Where(&Accounts{MemberId: memberId, Currency: currencyId}).First(&accountObj)
+    if result.Error != nil {
+        if result.RecordNotFound() {
+            return nil, nil
+        }
+
+        return nil, result.Error
+    }
+
+    accountObj.BaseModel.MySQLConnection = conn
+
+    return &accountObj, nil
 }

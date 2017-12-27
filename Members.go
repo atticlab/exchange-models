@@ -87,7 +87,7 @@ func (this *Members) GenerateSn() {
 
 func GetMemberByEmail(conn *gorm.DB, email string) (*Members, error) {
     if email == "" {
-        return nil, errors.New("Empty identity email")
+        return nil, errors.New("empty identity email")
     }
 
     var memberObj Members
@@ -108,7 +108,7 @@ func GetMemberByEmail(conn *gorm.DB, email string) (*Members, error) {
 
 func GetMember(conn *gorm.DB, id uint) (*Members, error) {
     if id == 0 {
-        return nil, errors.New("Empty member id")
+        return nil, errors.New("empty member id")
     }
 
     var memberObj Members
