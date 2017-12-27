@@ -3,7 +3,6 @@ package exmodels
 import (
     "time"
     "github.com/jinzhu/gorm"
-    "github.com/thanhpk/randstr"
 )
 
 type PaymentAddresses struct {
