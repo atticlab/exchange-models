@@ -2,56 +2,22 @@ package exmodels
 
 import (
     "time"
-    "github.com/jinzhu/gorm"
 )
 
 type PaymentAddresses struct {
     Id        uint   `gorm:"primary_key"`
+
+    //belongs_to
+    Account   Accounts
     AccountId uint
+
+    //has many
+    Transactions []PaymentTransactions `gorm:"ForeignKey:address"`
+
     Address   string `gorm:"size:255" sql:"default: null"`
     Currency  uint8
     Secret    string `gorm:"size:255" sql:"default: null"`
 
     CreatedAt *time.Time `sql:"default: null"`
     UpdatedAt *time.Time `sql:"default: null"`
-
-    BaseModel `sql:"-"`
-}
-
-func NewPaymentAddress(conn *gorm.DB, accountId uint, address string, currency uint8) (*PaymentAddresses, error) {
-    createdAt := time.Now()
-
-    pa := &PaymentAddresses{
-        AccountId: accountId,
-        Address: address,
-        Currency:  currency,
-        CreatedAt: &createdAt,
-        UpdatedAt: &createdAt,
-
-        BaseModel: BaseModel{MySQLConnection: conn},
-    }
-
-    return pa, nil
-}
-
-func (this *PaymentAddresses) Create() error {
-    return this.BaseModel.MySQLConnection.Create(&this).Error
-}
-
-func (this *PaymentAddresses) Save() error {
-    updatedAt := time.Now()
-    this.UpdatedAt = &updatedAt
-
-    return this.BaseModel.MySQLConnection.Save(&this).Error
-}
-
-func (this *PaymentAddresses) CreateInDBTransaction(tx *gorm.DB) *gorm.DB {
-    return tx.Create(&this)
-}
-
-func (this *PaymentAddresses) SaveInDBTransaction(tx *gorm.DB) *gorm.DB {
-    updatedAt := time.Now()
-    this.UpdatedAt = &updatedAt
-
-    return tx.Save(&this)
 }
