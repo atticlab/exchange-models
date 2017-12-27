@@ -6,6 +6,12 @@ import (
     "errors"
 )
 
+const (
+    PAYMENT_TX_STATE_UNCONFIRM = "unconfirm"
+    PAYMENT_TX_STATE_CONFIRMING = "confirming"
+    PAYMENT_TX_STATE_CONFIRMED = "confirmed"
+)
+
 type PaymentTransactions struct {
     Id            uint    `gorm:"primary_key"`
     Txid          string  `gorm:"size:255" sql:"default: null"`
