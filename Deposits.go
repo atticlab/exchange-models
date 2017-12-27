@@ -3,6 +3,7 @@ package exmodels
 import (
     "time"
     "github.com/jinzhu/gorm"
+    "errors"
 )
 
 type Deposits struct {
@@ -59,4 +60,46 @@ func (this *Deposits) SaveInDBTransaction(tx *gorm.DB) *gorm.DB {
     this.UpdatedAt = &updatedAt
 
     return tx.Save(&this)
+}
+
+func GetDepositByTxid(conn *gorm.DB, txid string) (*Deposits, error) {
+    if txid == "" {
+        return nil, errors.New("empty txid")
+    }
+
+    var depositObj Deposits
+
+    result := conn.Where(&Deposits{Txid: txid}).First(&depositObj)
+    if result.Error != nil {
+        if result.RecordNotFound() {
+            return nil, nil
+        }
+
+        return nil, result.Error
+    }
+
+    depositObj.BaseModel.MySQLConnection = conn
+
+    return &depositObj, nil
+}
+
+func GetDepositByPaymentTransactionId(conn *gorm.DB, ptid uint) (*Deposits, error) {
+    if ptid == 0 {
+        return nil, errors.New("empty ptid (Payment Transaction Id)")
+    }
+
+    var depositObj Deposits
+
+    result := conn.Where(&Deposits{PaymentTransactionId: ptid}).First(&depositObj)
+    if result.Error != nil {
+        if result.RecordNotFound() {
+            return nil, nil
+        }
+
+        return nil, result.Error
+    }
+
+    depositObj.BaseModel.MySQLConnection = conn
+
+    return &depositObj, nil
 }
