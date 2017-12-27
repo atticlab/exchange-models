@@ -7,10 +7,12 @@ import (
 )
 
 const (
-    PAYMENT_TX_STATE_UNCONFIRM = "unconfirm"
+    PAYMENT_TX_STATE_UNCONFIRM  = "unconfirm"
     PAYMENT_TX_STATE_CONFIRMING = "confirming"
-    PAYMENT_TX_STATE_CONFIRMED = "confirmed"
+    PAYMENT_TX_STATE_CONFIRMED  = "confirmed"
 )
+
+const PAYMENT_TX_TYPE_NORMAL = "PaymentTransaction::Normal"
 
 type PaymentTransactions struct {
     Id            uint    `gorm:"primary_key"`
