@@ -1,28 +1,31 @@
 package exmodels
 
 type Currency struct {
-    Title string
-    Code  string
-    Id    uint8
-    IsCoin bool
-    IsToken bool
+    Title         string
+    Code          string
+    Unit          string
+    Id            uint8
+    IsCoin        bool
+    IsToken       bool
     Confirmations uint8
 }
 
 var AcceptedCurrencies = []Currency{
     {
-        Title: "Yuan",
-        Code:  "CNY",
-        Id:    1,
-        IsCoin: false,
+        Title:   "Yuan",
+        Code:    "CNY",
+        Unit:    "Yuan",
+        Id:      1,
+        IsCoin:  false,
         IsToken: false,
     },
     {
-        Title: "Bitcoin",
-        Code:  "BTC",
-        Id:    2,
-        IsCoin: true,
-        IsToken: false,
+        Title:         "Bitcoin",
+        Code:          "BTC",
+        Unit:          "Satoshi",
+        Id:            2,
+        IsCoin:        true,
+        IsToken:       false,
         Confirmations: 3,
     },
 }
