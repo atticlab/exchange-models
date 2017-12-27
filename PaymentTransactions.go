@@ -56,6 +56,17 @@ func (this *PaymentTransactions) Save() error {
     return this.BaseModel.MySQLConnection.Save(&this).Error
 }
 
+func (this *PaymentTransactions) CreateInDBTransaction(tx *gorm.DB) *gorm.DB {
+    return tx.Create(&this)
+}
+
+func (this *PaymentTransactions) SaveInDBTransaction(tx *gorm.DB) *gorm.DB {
+    updatedAt := time.Now()
+    this.UpdatedAt = &updatedAt
+
+    return tx.Save(&this)
+}
+
 func GetPaymentTransactionByAddress(conn *gorm.DB, address string) (*PaymentTransactions, error) {
     if address == "" {
         return nil, errors.New("empty address")

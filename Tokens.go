@@ -53,11 +53,11 @@ func (this *Tokens) Save() error {
     return this.BaseModel.MySQLConnection.Save(&this).Error
 }
 
-func (this *Tokens) CreateWithTx(tx *gorm.DB) *gorm.DB {
+func (this *Tokens) CreateInDBTransaction(tx *gorm.DB) *gorm.DB {
     return tx.Create(&this)
 }
 
-func (this *Tokens) SaveWithTx(tx *gorm.DB) *gorm.DB {
+func (this *Tokens) SaveInDBTransaction(tx *gorm.DB) *gorm.DB {
     updatedAt := time.Now()
     this.UpdatedAt = &updatedAt
 

@@ -44,3 +44,14 @@ func (this *PaymentAddresses) Save() error {
 
     return this.BaseModel.MySQLConnection.Save(&this).Error
 }
+
+func (this *PaymentAddresses) CreateInDBTransaction(tx *gorm.DB) *gorm.DB {
+    return tx.Create(&this)
+}
+
+func (this *PaymentAddresses) SaveInDBTransaction(tx *gorm.DB) *gorm.DB {
+    updatedAt := time.Now()
+    this.UpdatedAt = &updatedAt
+
+    return tx.Save(&this)
+}
