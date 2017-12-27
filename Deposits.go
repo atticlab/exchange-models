@@ -4,15 +4,18 @@ import (
     "time"
 )
 
+const (
+    DEPOSIT_STATE_SUBMITTING = "submitting"
+    DEPOSIT_STATE_CANCELLED  = "cancelled"
+    DEPOSIT_STATE_SUBMITTED  = "submitted"
+    DEPOSIT_STATE_REJECTED   = "rejected"
+    DEPOSIT_STATE_ACCEPTED   = "accepted"
+    DEPOSIT_STATE_CHECKED    = "checked"
+    DEPOSIT_STATE_WARNING    = "warning"
+)
+
 type Deposits struct {
-    Id uint `gorm:"primary_key"`
-
-    //belongs_to
-    Account              Accounts
-    AccountId            uint
-    Member               Members
-    MemberId             uint
-
+    Id                   uint    `gorm:"primary_key"`
     Currency             uint8
     Amount               float32 `sql:"type:decimal(10,2);"`
     Fee                  float32 `sql:"type:decimal(10,2);"`
@@ -29,4 +32,9 @@ type Deposits struct {
     CreatedAt *time.Time `sql:"default: null"`
     UpdatedAt *time.Time `sql:"default: null"`
     DoneAt    *time.Time `sql:"default: null"`
+
+    Account   Accounts //belongs_to
+    AccountId uint     //belongs_to
+    Member    Members  //belongs_to
+    MemberId  uint     //belongs_to
 }
