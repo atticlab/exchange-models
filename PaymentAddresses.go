@@ -8,6 +8,7 @@ import (
 type PaymentAddresses struct {
     Id        uint   `gorm:"primary_key"`
     AccountId uint
+    Address   string `gorm:"size:255" sql:"default: null"`
     Currency  uint8
     Secret    string `gorm:"size:255" sql:"default: null"`
 
@@ -17,14 +18,15 @@ type PaymentAddresses struct {
     BaseModel `sql:"-"`
 }
 
-func NewPaymentAddress(conn *gorm.DB, accountId uint, currency uint8) (*PaymentAddresses, error) {
+func NewPaymentAddress(conn *gorm.DB, accountId uint, address string, currency uint8) (*PaymentAddresses, error) {
     createdAt := time.Now()
 
     pa := &PaymentAddresses{
-        AccountId:        accountId,
-        Currency:            currency,
-        CreatedAt:       &createdAt,
-        UpdatedAt:       &createdAt,
+        AccountId: accountId,
+        Address: address,
+        Currency:  currency,
+        CreatedAt: &createdAt,
+        UpdatedAt: &createdAt,
 
         BaseModel: BaseModel{MySQLConnection: conn},
     }
