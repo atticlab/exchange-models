@@ -3,6 +3,7 @@ package exmodels
 import (
     "time"
     "github.com/jinzhu/gorm"
+    "errors"
 )
 
 type PaymentTransactions struct {
@@ -45,4 +46,25 @@ func (this *PaymentTransactions) Save() error {
     this.UpdatedAt = &updatedAt
 
     return this.BaseModel.MySQLConnection.Save(&this).Error
+}
+
+func GetPaymentTransactionByAddress(conn *gorm.DB, address string) (*PaymentTransactions, error) {
+    if address == "" {
+        return nil, errors.New("empty address")
+    }
+
+    var paymentTransactionObj PaymentTransactions
+
+    result := conn.Where(&PaymentTransactions{Address: address}).First(&paymentTransactionObj)
+    if result.Error != nil {
+        if result.RecordNotFound() {
+            return nil, nil
+        }
+
+        return nil, result.Error
+    }
+
+    paymentTransactionObj.BaseModel.MySQLConnection = conn
+
+    return &paymentTransactionObj, nil
 }
