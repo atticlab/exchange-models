@@ -27,8 +27,8 @@ type Members struct {
     CreatedAt *time.Time
     UpdatedAt *time.Time
 
-    Accounts []Accounts //has many
-    Deposits []Deposits //has many
+    //Accounts []Accounts //has many
+    //Deposits []Deposits //has many
 }
 
 func (this *Members) generateSn() {

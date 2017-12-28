@@ -18,7 +18,7 @@ type PaymentTransactions struct {
     Amount        float64 `sql:"type:decimal(32,16);"`
     Confirmations uint    `sql:"default: null"`
     Address       string  `gorm:"size:255" sql:"default: null"`
-    State         uint    `sql:"default: null"`
+    State         uint    `sql:"default: 0"`
     AasmState     string  `gorm:"size:255" sql:"default: null"`
 
     Currency uint8
@@ -30,6 +30,6 @@ type PaymentTransactions struct {
     ReceiveAt *time.Time `sql:"default: null"`
     DontAt    *time.Time `sql:"default: null"`
 
-    Deposit        Deposits                                     //has one
-    PaymentAddress PaymentAddresses `gorm:"ForeignKey:address"` //belongs to
+    //Deposit        Deposits                                     //has one
+    //PaymentAddress PaymentAddresses `gorm:"ForeignKey:address"` //belongs to
 }

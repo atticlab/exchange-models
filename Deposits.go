@@ -22,7 +22,7 @@ type Deposits struct {
     FundUid              string  `gorm:"size:255" sql:"default: null"`
     FundExtra            string  `gorm:"size:255" sql:"default: null"`
     Txid                 string  `gorm:"size:255" sql:"default: null"`
-    State                uint    `sql:"default: null"`
+    State                uint    `sql:"default: 0"`
     AasmState            string  `gorm:"size:255" sql:"default: null"`
     Confirmations        uint    `sql:"default: null"`
     Type                 string  `gorm:"size:255" sql:"default: null"`
@@ -33,8 +33,8 @@ type Deposits struct {
     UpdatedAt *time.Time `sql:"default: null"`
     DoneAt    *time.Time `sql:"default: null"`
 
-    Account   Accounts //belongs_to
-    AccountId uint     //belongs_to
-    Member    Members  //belongs_to
-    MemberId  uint     //belongs_to
+    //Account   Accounts //belongs_to
+    //AccountId uint     //belongs_to
+    //Member    Members  //belongs_to
+    //MemberId  uint     //belongs_to
 }
