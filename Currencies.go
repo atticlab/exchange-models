@@ -7,7 +7,7 @@ type Currency struct {
     Title         string
     Code          string
     Unit          string
-    UnitRatio     *big.Int //big used reserved for WEI
+    UnitRatio     *big.Float //big used reserved for WEI
     IsCoin        bool
     IsToken       bool
     Confirmations uint8
@@ -19,7 +19,7 @@ var AcceptedCurrencies = []Currency{
         Title:     "Yuan",
         Code:      "CNY",
         Unit:      "Yuan",
-        UnitRatio: big.NewInt(1),
+        UnitRatio: big.NewFloat(1),
         IsCoin:    false,
         IsToken:   false,
     },
@@ -28,7 +28,7 @@ var AcceptedCurrencies = []Currency{
         Title:         "Bitcoin",
         Code:          "BTC",
         Unit:          "Satoshi",
-        UnitRatio:     big.NewInt(100000000), //1.00 BTC
+        UnitRatio:     big.NewFloat(100000000), //1.00 BTC
         IsCoin:        true,
         IsToken:       false,
         Confirmations: 3,
