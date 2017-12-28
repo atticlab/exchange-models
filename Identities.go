@@ -2,6 +2,7 @@ package exmodels
 
 import (
     "time"
+    "golang.org/x/crypto/bcrypt"
 )
 
 type Identities struct {
@@ -16,4 +17,14 @@ type Identities struct {
 
     CreatedAt *time.Time `sql:"default: null"`
     UpdatedAt *time.Time `sql:"default: null"`
+}
+
+func (this *Identities) SetHashedPassword(password string) error {
+    hashByte, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+    this.PasswordDigest = string(hashByte)
+    return err
+}
+
+func (this *Identities) CheckPassword(password string) error {
+    return bcrypt.CompareHashAndPassword([]byte(this.PasswordDigest), []byte(password))
 }

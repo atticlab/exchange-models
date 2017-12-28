@@ -32,6 +32,7 @@ type Members struct {
 }
 
 func (this *Members) generateSn() {
+    rand.Seed(time.Now().UnixNano())
     var letterRunes = []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     b := make([]rune, SN_LENGTH)
     for i := range b {
@@ -40,4 +41,10 @@ func (this *Members) generateSn() {
     this.Sn = strings.ToUpper(SN_PREFIX + string(b) + SN_POSTFIX)
 
     return
+}
+
+func (this *Members) BeforeCreate() (err error) {
+    this.generateSn()
+
+    return nil
 }
