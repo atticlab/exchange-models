@@ -14,6 +14,6 @@ type PaymentAddresses struct {
     UpdatedAt *time.Time `sql:"default: null"`
 
     //Account      Accounts                                          //belongs_to
-    //AccountId    uint                                              //belongs_to
+    AccountId    uint                                              //belongs_to
     //Transactions []PaymentTransactions `gorm:"ForeignKey:address"` //has many
 }

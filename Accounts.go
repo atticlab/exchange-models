@@ -18,6 +18,6 @@ type Accounts struct {
     UpdatedAt *time.Time `sql:"default: null"`
 
     //Member           Members            //belongs_to
-    //MemberId         uint               //belongs_to
+    MemberId         uint               //belongs_to
     //PaymentAddresses []PaymentAddresses //has many
 }

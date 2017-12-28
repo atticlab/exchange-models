@@ -34,7 +34,7 @@ type Deposits struct {
     DoneAt    *time.Time `sql:"default: null"`
 
     //Account   Accounts //belongs_to
-    //AccountId uint     //belongs_to
+    AccountId uint     //belongs_to
     //Member    Members  //belongs_to
-    //MemberId  uint     //belongs_to
+    MemberId  uint     //belongs_to
 }
