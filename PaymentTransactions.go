@@ -14,13 +14,6 @@ const PAYMENT_TX_TYPE_NORMAL = "PaymentTransaction::Normal"
 
 type PaymentTransactions struct {
     Id            uint    `gorm:"primary_key"`
-
-    //has one
-    Deposit Deposits
-
-    //belongs to
-    PaymentAddress      PaymentAddresses `gorm:"ForeignKey:address"`
-
     Txid          string  `gorm:"size:255" sql:"default: null"`
     Amount        float32 `sql:"type:decimal(10,2);"`
     Confirmations uint    `sql:"default: null"`
@@ -36,4 +29,7 @@ type PaymentTransactions struct {
     UpdatedAt *time.Time `sql:"default: null"`
     ReceiveAt *time.Time `sql:"default: null"`
     DontAt    *time.Time `sql:"default: null"`
+
+    Deposit        Deposits                                     //has one
+    PaymentAddress PaymentAddresses `gorm:"ForeignKey:address"` //belongs to
 }
