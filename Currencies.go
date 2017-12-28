@@ -1,10 +1,13 @@
 package exmodels
 
+import "math/big"
+
 type Currency struct {
+    Id            uint8
     Title         string
     Code          string
     Unit          string
-    Id            uint8
+    UnitRatio     *big.Int //big used reserved for WEI
     IsCoin        bool
     IsToken       bool
     Confirmations uint8
@@ -12,18 +15,20 @@ type Currency struct {
 
 var AcceptedCurrencies = []Currency{
     {
-        Title:   "Yuan",
-        Code:    "CNY",
-        Unit:    "Yuan",
-        Id:      1,
-        IsCoin:  false,
-        IsToken: false,
+        Id:        1,
+        Title:     "Yuan",
+        Code:      "CNY",
+        Unit:      "Yuan",
+        UnitRatio: big.NewInt(1),
+        IsCoin:    false,
+        IsToken:   false,
     },
     {
+        Id:            2,
         Title:         "Bitcoin",
         Code:          "BTC",
         Unit:          "Satoshi",
-        Id:            2,
+        UnitRatio:     big.NewInt(100000000), //1.00 BTC
         IsCoin:        true,
         IsToken:       false,
         Confirmations: 3,
