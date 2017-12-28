@@ -15,7 +15,7 @@ const PAYMENT_TX_TYPE_NORMAL = "PaymentTransaction::Normal"
 type PaymentTransactions struct {
     Id            uint    `gorm:"primary_key"`
     Txid          string  `gorm:"size:255" sql:"default: null"`
-    Amount        float32 `sql:"type:decimal(10,2);"`
+    Amount        float64 `sql:"type:decimal(32,16);"`
     Confirmations uint    `sql:"default: null"`
     Address       string  `gorm:"size:255" sql:"default: null"`
     State         uint    `sql:"default: null"`

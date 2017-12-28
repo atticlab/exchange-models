@@ -17,8 +17,8 @@ const (
 type Deposits struct {
     Id                   uint    `gorm:"primary_key"`
     Currency             uint8
-    Amount               float32 `sql:"type:decimal(10,2);"`
-    Fee                  float32 `sql:"type:decimal(10,2);"`
+    Amount               float64 `sql:"type:decimal(32,16);"`
+    Fee                  float64 `sql:"type:decimal(32,16);"`
     FundUid              string  `gorm:"size:255" sql:"default: null"`
     FundExtra            string  `gorm:"size:255" sql:"default: null"`
     Txid                 string  `gorm:"size:255" sql:"default: null"`

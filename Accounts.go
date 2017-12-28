@@ -7,10 +7,10 @@ import (
 type Accounts struct {
     Id       uint    `gorm:"primary_key"`
     Currency uint8
-    Balance  float32 `sql:"type:decimal(10,2);"`
-    Locked   float32 `sql:"type:decimal(10,2);"`
-    In       float32 `sql:"type:decimal(10,2); default: null"`
-    Out      float32 `sql:"type:decimal(10,2); default: null"`
+    Balance  float64 `sql:"type:decimal(32,16);"`
+    Locked   float64 `sql:"type:decimal(32,16);"`
+    In       float64 `sql:"type:decimal(32,16); default: null"`
+    Out      float64 `sql:"type:decimal(32,16); default: null"`
 
     DefaultWithdrawFundSourceId uint `sql:"default: null"`
 
