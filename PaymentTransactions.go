@@ -23,7 +23,7 @@ type PaymentTransactions struct {
 
     Currency uint8
     Type     string `gorm:"size:255" sql:"default: null"`
-    Txout    uint   `sql:"default: null"`
+    Txout    uint   `sql:"default: 0"`
 
     CreatedAt *time.Time `sql:"default: null"`
     UpdatedAt *time.Time `sql:"default: null"`

@@ -27,7 +27,7 @@ type Deposits struct {
     Confirmations        uint    `sql:"default: null"`
     Type                 string  `gorm:"size:255" sql:"default: null"`
     PaymentTransactionId uint    `sql:"default: null"`
-    Txout                uint    `sql:"default: null"`
+    Txout                uint    `sql:"default: 0"`
 
     CreatedAt *time.Time `sql:"default: null"`
     UpdatedAt *time.Time `sql:"default: null"`
