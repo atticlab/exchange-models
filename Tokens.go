@@ -4,7 +4,7 @@ import (
     "time"
 )
 
-const TokenTypeActivation = "Token::Activation"
+const TOKEN_TYPE_ACTIVATION = "Token::Activation"
 
 type Tokens struct {
     Id       uint   `gorm:"primary_key"`
