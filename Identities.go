@@ -12,6 +12,8 @@ type Identities struct {
     IsActive       bool       `sql:"default: null"`
     RetryCount     int        `sql:"default: null"`
     IsLocked       bool       `sql:"default: null"`
+    IsTotpEnabled  bool       `sql:"default: false"`
+    TotpSecret     string     `gorm:"size:255"`
     LockedAt       *time.Time `sql:"default: null"`
     LastVerifyAt   *time.Time `sql:"default: null"`
 
