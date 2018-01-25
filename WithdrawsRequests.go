@@ -4,6 +4,11 @@ import (
     "time"
 )
 
+const (
+    WITH_REQ_STATE_CREATED = "Created"
+    WITH_REQ_STATE_DONE = "Done"
+)
+
 type WithdrawsRequests struct {
     Id           uint    `gorm:"primary_key"`
     AccountId    uint
