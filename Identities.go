@@ -6,19 +6,20 @@ import (
 )
 
 type Identities struct {
-    Id             uint       `gorm:"primary_key"`
-    Email          string     `gorm:"size:255"`
-    PasswordDigest string     `gorm:"size:255"`
-    IsActive       bool       `sql:"default: null"`
-    RetryCount     int        `sql:"default: null"`
-    IsLocked       bool       `sql:"default: null"`
-    IsTotpEnabled  bool       `sql:"default: false"`
-    TotpSecret     string     `gorm:"size:255"`
-    LockedAt       *time.Time `sql:"default: null"`
-    LastVerifyAt   *time.Time `sql:"default: null"`
+    Id                uint   `gorm:"primary_key"`
+    Email             string `gorm:"size:255"`
+    PasswordDigest    string `gorm:"size:255"`
+    IsActive          bool   `sql:"default: null"`
+    RetryCount        int    `sql:"default: null"`
+    IsLocked          bool   `sql:"default: null"`
+    IsTotpEnabled     bool   `sql:"default: false"`
+    IsPhone2FAEnabled bool   `gorm:"column:is_phone_2fa_enabled"`
+    TotpSecret        string `gorm:"size:255"`
 
-    CreatedAt *time.Time `sql:"default: null"`
-    UpdatedAt *time.Time `sql:"default: null"`
+    LockedAt     *time.Time `sql:"default: null"`
+    LastVerifyAt *time.Time `sql:"default: null"`
+    CreatedAt    *time.Time `sql:"default: null"`
+    UpdatedAt    *time.Time `sql:"default: null"`
 }
 
 func (this *Identities) SetHashedPassword(password string) error {
