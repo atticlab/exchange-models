@@ -4,6 +4,12 @@ import (
     "time"
 )
 
+const (
+    WITH_TX_STATE_CREATED = "Created"
+    WITH_TX_STATE_PROCESSING = "Processing"
+    WITH_TX_STATE_DONE = "Done"
+)
+
 type WithdrawsTransactions struct {
     Id         uint    `gorm:"primary_key"`
     Txid       string  `gorm:"size:255" sql:"default: null"`
