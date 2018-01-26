@@ -18,3 +18,15 @@ type PaymentAddresses struct {
 	AccountId uint //belongs_to
 	//Transactions []PaymentTransactions `gorm:"ForeignKey:address"` //has many
 }
+
+func (this *PaymentAddresses) BeforeCreate() (err error) {
+	time := time.Now()
+	this.CreatedAt = &time
+	return
+}
+
+func (this *PaymentAddresses) BeforeUpdate() (err error) {
+	time := time.Now()
+	this.UpdatedAt = &time
+	return
+}

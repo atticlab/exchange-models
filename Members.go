@@ -47,5 +47,14 @@ func (this *Members) generateSn() {
 func (this *Members) BeforeCreate() (err error) {
     this.generateSn()
 
+    time := time.Now()
+    this.CreatedAt = &time
+
     return nil
+}
+
+func (this *Members) BeforeUpdate() (err error) {
+    time := time.Now()
+    this.UpdatedAt = &time
+    return
 }

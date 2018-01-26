@@ -21,3 +21,15 @@ type Accounts struct {
     MemberId         uint               //belongs_to
     //PaymentAddresses []PaymentAddresses //has many
 }
+
+func (this *Accounts) BeforeCreate() (err error) {
+    time := time.Now()
+    this.CreatedAt = &time
+    return
+}
+
+func (this *Accounts) BeforeUpdate() (err error) {
+    time := time.Now()
+    this.UpdatedAt = &time
+    return
+}

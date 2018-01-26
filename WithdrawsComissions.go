@@ -14,9 +14,14 @@ type WithdrawsComissions struct {
     UpdatedAt *time.Time `sql:"default: null"`
 }
 
-//id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-//currency INT(11),
-//fixed DECIMAL(32,16),
-//dynamic DECIMAL(32,16),
-//created_at DATETIME,
-//updated_at DATETIME
+func (this *WithdrawsComissions) BeforeCreate() (err error) {
+    time := time.Now()
+    this.CreatedAt = &time
+    return
+}
+
+func (this *WithdrawsComissions) BeforeUpdate() (err error) {
+    time := time.Now()
+    this.UpdatedAt = &time
+    return
+}

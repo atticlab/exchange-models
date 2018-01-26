@@ -33,3 +33,15 @@ type PaymentTransactions struct {
     //Deposit        Deposits                                     //has one
     //PaymentAddress PaymentAddresses `gorm:"ForeignKey:address"` //belongs to
 }
+
+func (this *PaymentTransactions) BeforeCreate() (err error) {
+    time := time.Now()
+    this.CreatedAt = &time
+    return
+}
+
+func (this *PaymentTransactions) BeforeUpdate() (err error) {
+    time := time.Now()
+    this.UpdatedAt = &time
+    return
+}

@@ -38,3 +38,15 @@ type Deposits struct {
     //Member    Members  //belongs_to
     MemberId  uint     //belongs_to
 }
+
+func (this *Deposits) BeforeCreate() (err error) {
+    time := time.Now()
+    this.CreatedAt = &time
+    return
+}
+
+func (this *Deposits) BeforeUpdate() (err error) {
+    time := time.Now()
+    this.UpdatedAt = &time
+    return
+}

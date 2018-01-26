@@ -23,3 +23,15 @@ type WithdrawsRequests struct {
     CreatedAt *time.Time `sql:"default: null"`
     UpdatedAt *time.Time `sql:"default: null"`
 }
+
+func (this *WithdrawsRequests) BeforeCreate() (err error) {
+    time := time.Now()
+    this.CreatedAt = &time
+    return
+}
+
+func (this *WithdrawsRequests) BeforeUpdate() (err error) {
+    time := time.Now()
+    this.UpdatedAt = &time
+    return
+}

@@ -30,3 +30,15 @@ func (this *Identities) SetHashedPassword(password string) error {
 func (this *Identities) CheckPassword(password string) error {
     return bcrypt.CompareHashAndPassword([]byte(this.PasswordDigest), []byte(password))
 }
+
+func (this *Identities) BeforeCreate() (err error) {
+    time := time.Now()
+    this.CreatedAt = &time
+    return
+}
+
+func (this *Identities) BeforeUpdate() (err error) {
+    time := time.Now()
+    this.UpdatedAt = &time
+    return
+}
