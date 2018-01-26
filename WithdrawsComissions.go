@@ -8,7 +8,9 @@ type WithdrawsComissions struct {
     Id       uint    `gorm:"primary_key"`
     Currency uint8
     Fixed    float64 `sql:"type:decimal(32,16);"`
-    Dynamic  float64 `sql:"type:decimal(32,16);"`
+    Dynamic  float64 `sql:"type:decimal(5,4);"`
+
+    MinWithdrawAmount float64 `sql:"type:decimal(32,16);"`
 
     CreatedAt *time.Time `sql:"default: null"`
     UpdatedAt *time.Time `sql:"default: null"`
