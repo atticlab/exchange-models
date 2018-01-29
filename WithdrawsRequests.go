@@ -22,6 +22,7 @@ type WithdrawsRequests struct {
 
     CreatedAt *time.Time `sql:"default: null"`
     UpdatedAt *time.Time `sql:"default: null"`
+    DoneAt    *time.Time `sql:"default: null"`
 }
 
 func (this *WithdrawsRequests) BeforeCreate() (err error) {
