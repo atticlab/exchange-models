@@ -29,7 +29,7 @@ const (
     FUNS_UNLOCK_AND_SUB_FUNDS  //=5
 )
 
-type AccountsVersions struct {
+type AccountVersions struct {
     Id             uint    `gorm:"primary_key"`
     AccountId      uint
     MemberId       uint
@@ -48,13 +48,13 @@ type AccountsVersions struct {
     UpdatedAt *time.Time `sql:"default: null"`
 }
 
-func (this *AccountsVersions) BeforeCreate() (err error) {
+func (this *AccountVersions) BeforeCreate() (err error) {
     time := time.Now()
     this.CreatedAt = &time
     return
 }
 
-func (this *AccountsVersions) BeforeUpdate() (err error) {
+func (this *AccountVersions) BeforeUpdate() (err error) {
     time := time.Now()
     this.UpdatedAt = &time
     return
