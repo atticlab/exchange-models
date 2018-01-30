@@ -4,6 +4,8 @@ import (
     "time"
 )
 
+const TYPE_ACCOUNT = "Account"
+
 type Accounts struct {
     Id       uint    `gorm:"primary_key"`
     Currency uint8

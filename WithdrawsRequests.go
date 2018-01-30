@@ -11,6 +11,8 @@ const (
     WITH_REQ_STATE_DONE    = "Done"
 )
 
+const TYPE_WITHDRAW = "Withdraw"
+
 type WithdrawsRequests struct {
     Id           uint    `gorm:"primary_key"`
     AccountId    uint

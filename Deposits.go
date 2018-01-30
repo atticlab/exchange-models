@@ -14,6 +14,8 @@ const (
     DEPOSIT_STATE_WARNING    = "warning"
 )
 
+const TYPE_DEPOSIT = "Deposit"
+
 type Deposits struct {
     Id                   uint    `gorm:"primary_key"`
     Currency             uint8
