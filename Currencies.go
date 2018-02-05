@@ -1,7 +1,6 @@
 package exmodels
 
 import (
-    "math/big"
     "github.com/shopspring/decimal"
 )
 
