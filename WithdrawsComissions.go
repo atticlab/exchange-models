@@ -2,6 +2,7 @@ package exmodels
 
 import (
     "time"
+    "github.com/shopspring/decimal"
 )
 
 type WithdrawsComissions struct {
@@ -10,7 +11,7 @@ type WithdrawsComissions struct {
     Fixed    float64 `sql:"type:decimal(32,16);"`
     Dynamic  float64 `sql:"type:decimal(5,4);"`
 
-    MinWithdrawAmount float64 `sql:"type:decimal(32,16);"`
+    MinWithdrawAmount decimal.NullDecimal `sql:"type:decimal(32,16);"`
 
     CreatedAt *time.Time `sql:"default: null"`
     UpdatedAt *time.Time `sql:"default: null"`

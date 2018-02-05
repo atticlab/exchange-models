@@ -1,13 +1,16 @@
 package exmodels
 
-import "math/big"
+import (
+    "math/big"
+    "github.com/shopspring/decimal"
+)
 
 type Currency struct {
     Id            uint8
     Title         string
     Code          string
     Unit          string
-    UnitRatio     *big.Float //big used reserved for WEI
+    UnitRatio     decimal.Decimal //big used reserved for WEI
     IsCoin        bool
     IsToken       bool
     Confirmations uint8
@@ -19,7 +22,7 @@ var AcceptedCurrencies = []Currency{
         Title:     "Yuan",
         Code:      "CNY",
         Unit:      "Yuan",
-        UnitRatio: big.NewFloat(1),
+        UnitRatio: decimal.NewFromFloat(1),
         IsCoin:    false,
         IsToken:   false,
     },
@@ -28,7 +31,7 @@ var AcceptedCurrencies = []Currency{
         Title:         "Bitcoin",
         Code:          "BTC",
         Unit:          "Satoshi",
-        UnitRatio:     big.NewFloat(100000000), //1.00 BTC
+        UnitRatio:     decimal.NewFromFloat(100000000), //1.00 BTC
         IsCoin:        true,
         IsToken:       false,
         Confirmations: 3,

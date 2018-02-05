@@ -2,6 +2,7 @@ package exmodels
 
 import (
     "time"
+    "github.com/shopspring/decimal"
 )
 
 const (
@@ -34,10 +35,10 @@ type AccountVersions struct {
     AccountId      uint
     MemberId       uint
     Reason         uint
-    Balance        float64 `sql:"type:decimal(32,16);"`
-    Locked         float64 `sql:"type:decimal(32,16);"`
-    Fee            float64 `sql:"type:decimal(32,16); default: null"`
-    Amount         float64 `sql:"type:decimal(32,16); default: null"`
+    Balance        decimal.NullDecimal `sql:"type:decimal(32,16);"`
+    Locked         decimal.NullDecimal `sql:"type:decimal(32,16);"`
+    Fee            decimal.NullDecimal `sql:"type:decimal(32,16); default: null"`
+    Amount         decimal.NullDecimal `sql:"type:decimal(32,16); default: null"`
     ModifiableId   uint
     ModifiableType string
 

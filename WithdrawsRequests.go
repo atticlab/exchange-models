@@ -2,6 +2,7 @@ package exmodels
 
 import (
     "time"
+    "github.com/shopspring/decimal"
 )
 
 const (
@@ -19,8 +20,8 @@ type WithdrawsRequests struct {
     MemberId     uint
     Currency     uint8
     Address      string  `gorm:"size:255" sql:"default: null"`
-    Amount       float64 `sql:"type:decimal(32,16);"`
-    Fee          float64 `sql:"type:decimal(32,16);"`
+    Amount       decimal.NullDecimal `sql:"type:decimal(32,16);"`
+    Fee          decimal.NullDecimal `sql:"type:decimal(32,16);"`
     WithdrawTxId uint
     State        string  `gorm:"size:255" sql:"default: null"`
 

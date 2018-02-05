@@ -2,6 +2,7 @@ package exmodels
 
 import (
     "time"
+    "github.com/shopspring/decimal"
 )
 
 const TYPE_ACCOUNT = "Account"
@@ -9,10 +10,10 @@ const TYPE_ACCOUNT = "Account"
 type Accounts struct {
     Id       uint    `gorm:"primary_key"`
     Currency uint8
-    Balance  float64 `sql:"type:decimal(32,16);"`
-    Locked   float64 `sql:"type:decimal(32,16);"`
-    In       float64 `sql:"type:decimal(32,16); default: null"`
-    Out      float64 `sql:"type:decimal(32,16); default: null"`
+    Balance  decimal.NullDecimal `sql:"type:decimal(32,16);"`
+    Locked   decimal.NullDecimal `sql:"type:decimal(32,16);"`
+    In       decimal.NullDecimal `sql:"type:decimal(32,16); default: null"`
+    Out      decimal.NullDecimal `sql:"type:decimal(32,16); default: null"`
 
     DefaultWithdrawFundSourceId uint `sql:"default: null"`
 
