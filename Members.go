@@ -25,6 +25,8 @@ type Members struct {
     ApiDisabled      bool
     Nickname         string `gorm:"size:255" sql:"default: null"`
     RefId            uint   `sql:"default: null"`
+    Name             string `gorm:"size:255" sql:"default: null"`
+    Surname          string `gorm:"size:255" sql:"default: null"`
 
     CreatedAt *time.Time
     UpdatedAt *time.Time
