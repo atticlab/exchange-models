@@ -12,6 +12,7 @@ type Identities struct {
     IsActive          bool   `sql:"default: null"`
     RetryCount        int    `sql:"default: null"`
     IsLocked          bool   `sql:"default: null"`
+    RetryCount2FA     int    `sql:"default: 0" gorm:"column:retry_count_2fa"`
     IsTotpEnabled     bool   `sql:"default: false"`
     IsPhone2FAEnabled bool   `gorm:"column:is_phone_2fa_enabled"`
     TotpSecret        string `gorm:"size:255"`
