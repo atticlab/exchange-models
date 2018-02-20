@@ -2,6 +2,7 @@ package exmodels
 
 import (
     "github.com/shopspring/decimal"
+    "math"
 )
 
 type Currency struct {
@@ -30,10 +31,30 @@ var AcceptedCurrencies = []Currency{
         Title:         "Bitcoin",
         Code:          "BTC",
         Unit:          "Satoshi",
-        UnitRatio:     decimal.NewFromFloat(100000000), //1.00 BTC
+        UnitRatio:     decimal.NewFromFloat(math.Pow10(8)), //1.00 BTC
         IsCoin:        true,
         IsToken:       false,
         Confirmations: 3,
+    },
+    {
+        Id:            3,
+        Title:         "Ripple",
+        Code:          "XRP",
+        Unit:          "ripple",
+        UnitRatio:     decimal.NewFromFloat(math.Pow10(0)), //1.00 XRP ???
+        IsCoin:        true,
+        IsToken:       false,
+        Confirmations: 3,
+    },
+    {
+        Id:            4,
+        Title:         "Ethereum",
+        Code:          "ETH",
+        Unit:          "WEI",
+        UnitRatio:     decimal.NewFromFloat(math.Pow10(18)), //1.00 ETH
+        IsCoin:        true,
+        IsToken:       false,
+        Confirmations: 6,
     },
 }
 
