@@ -19,6 +19,7 @@ type WithdrawsTransactions struct {
     MaxFee     decimal.NullDecimal `sql:"type:decimal(32,16);"`
     Txbody     string              `sql:"type: text"`
     TxbodyHash string              `gorm:"size:255" sql:"default: null"`
+    TxData     string              `gorm:"size:255" sql:"default: null"`
 
     CreatedAt *time.Time `sql:"default: null"`
     UpdatedAt *time.Time `sql:"default: null"`
