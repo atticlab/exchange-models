@@ -7,6 +7,7 @@ import (
 const TOKEN_TYPE_ACTIVATION = "Token::Activation"
 const TOKEN_TYPE_REFRESH = "Token::Refresh"
 const TOKEN_TYPE_PASSWORD_UPDATE = "Token::PasswordUpdate"
+const TOKEN_TYPE_PASSWORD_RESET = "Token::PasswordReset"
 const TOKEN_TYPE_PHONE_CONFIRMATION = "Token::PhoneConfirmation"
 const TOKEN_TYPE_PHONE_2FA_CODE = "Token::Phone2FACode"
 
