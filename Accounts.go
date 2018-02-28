@@ -9,7 +9,7 @@ const TYPE_ACCOUNT = "Account"
 
 type Accounts struct {
     Id       uint    `gorm:"primary_key"`
-    Currency uint8
+    Currency uint
     Balance  decimal.NullDecimal `sql:"type:decimal(32,16);"`
     Locked   decimal.NullDecimal `sql:"type:decimal(32,16);"`
     In       decimal.NullDecimal `sql:"type:decimal(32,16); default: null"`

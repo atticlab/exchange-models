@@ -42,7 +42,7 @@ type AccountVersions struct {
     ModifiableId   uint
     ModifiableType string
 
-    Currency uint8
+    Currency uint
     Fun      uint8
 
     CreatedAt *time.Time `sql:"default: null"`

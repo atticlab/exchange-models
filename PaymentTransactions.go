@@ -22,7 +22,7 @@ type PaymentTransactions struct {
     State         uint    `sql:"default: 0"`
     AasmState     string  `gorm:"size:255" sql:"default: null"`
 
-    Currency uint8
+    Currency uint
     Type     string `gorm:"size:255" sql:"default: null"`
     Txout    uint   `sql:"default: 0"`
 

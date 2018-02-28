@@ -7,7 +7,7 @@ import (
 
 type WithdrawsComissions struct {
     Id       uint    `gorm:"primary_key"`
-    Currency uint8
+    Currency uint
     Fixed    decimal.NullDecimal `sql:"type:decimal(32,16);"`
     Dynamic  decimal.NullDecimal `sql:"type:decimal(5,4);"`
 

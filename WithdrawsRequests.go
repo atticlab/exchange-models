@@ -18,7 +18,7 @@ type WithdrawsRequests struct {
     Id           uint    `gorm:"primary_key"`
     AccountId    uint
     MemberId     uint
-    Currency     uint8
+    Currency     uint
     Address      string  `gorm:"size:255" sql:"default: null"`
     Amount       decimal.NullDecimal `sql:"type:decimal(32,16);"`
     Fee          decimal.NullDecimal `sql:"type:decimal(32,16);"`
