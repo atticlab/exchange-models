@@ -7,6 +7,7 @@ import (
 
 const (
     WITH_REQ_STATE_CREATED = "Created"
+    WITH_REQ_STATE_APPROVED = "Approved"
     WITH_REQ_STATE_SUSPECT = "Suspect"
     WITH_REQ_STATE_PROCESSING = "Processing"
     WITH_REQ_STATE_DONE    = "Done"

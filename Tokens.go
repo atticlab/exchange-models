@@ -10,6 +10,7 @@ const TOKEN_TYPE_PASSWORD_UPDATE = "Token::PasswordUpdate"
 const TOKEN_TYPE_PASSWORD_RESET = "Token::PasswordReset"
 const TOKEN_TYPE_PHONE_CONFIRMATION = "Token::PhoneConfirmation"
 const TOKEN_TYPE_PHONE_2FA_CODE = "Token::Phone2FACode"
+const TOKEN_TYPE_WITHDRAW = "Token::Withdraw"
 
 type Tokens struct {
     Id       uint   `gorm:"primary_key"`
